@@ -10,6 +10,9 @@ import { toast, useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { formSchema } from '@/app/_validators/formSchema';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 
 type FormInput = z.infer<typeof formSchema>;
 type handleStateChage = {
@@ -39,8 +42,34 @@ export function LoginForm({ handleStateChage }: handleStateChage) {
       ),
     });
   }
+  const [success, setSuccess] = useState([]);
   //이메일,연락처 중복확인
-  console.log('watch', form.watch());
+  const login = async () => {
+    const email = form.watch().email;
+    const password = form.watch().password;
+
+    const res = await fetch(`/api`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    const user = data[0];
+    toast({
+      title: '로그인 성공',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{user.name + '님 어서오세요'}</code>
+        </pre>
+      ),
+    });
+  };
+  // const loginUser = { params: { email, password } };
+  // const { data } = await axios.get('http://localhost:8000/auth', loginUser);
+  // console.log(data);
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
@@ -79,7 +108,9 @@ export function LoginForm({ handleStateChage }: handleStateChage) {
                   )}
                 />{' '}
                 <div className="flex justify-end">
-                  <Button type="submit">로그인하기</Button>
+                  <Button type="submit" onClick={login}>
+                    로그인하기
+                  </Button>
                 </div>
               </form>
             </Form>

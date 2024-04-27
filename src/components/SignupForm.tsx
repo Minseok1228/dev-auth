@@ -11,6 +11,8 @@ import { toast, useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { formSchema } from '@/app/_validators/formSchema';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 type FormInput = z.infer<typeof formSchema>;
 type handleStateChage = {
@@ -42,6 +44,13 @@ export function SignupForm({ handleStateChage }: handleStateChage) {
   }
   //이메일,연락처 중복확인
   console.log('watch', form.watch());
+
+  // axios
+  const setAuth = async () => {
+    const newUser = { ...form.watch(), id: uuidv4() };
+    await axios.post('http://localhost:8000/auth', newUser);
+  };
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
@@ -138,7 +147,9 @@ export function SignupForm({ handleStateChage }: handleStateChage) {
                   )}
                 />
                 <div className="flex justify-end">
-                  <Button type="submit">생성하기</Button>
+                  <Button type="submit" onClick={setAuth}>
+                    생성하기
+                  </Button>
                 </div>
               </form>
             </Form>

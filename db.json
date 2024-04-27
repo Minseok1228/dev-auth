@@ -1,0 +1,31 @@
+{
+  "auth": [
+    {
+      "name": "dd",
+      "email": "a@a.com",
+      "phone": "01022222222",
+      "role": "user",
+      "password": "1q2w3e!",
+      "confirmPassword": "1q2w3e!",
+      "id": "7162243e-f6a5-4967-8546-21cecc580917"
+    },
+    {
+      "name": "제삿밥",
+      "email": "34545@a.com",
+      "phone": "01022222222",
+      "role": "user",
+      "password": "1q2w3e!",
+      "confirmPassword": "1q2w3e!~",
+      "id": "191d79e6-1254-42be-8a38-4990503a8509"
+    },
+    {
+      "name": "제삿밥",
+      "email": "34545@a.com",
+      "phone": "01022222222",
+      "role": "user",
+      "password": "1q2w3e!",
+      "confirmPassword": "1q2w3e!",
+      "id": "7bb2e0cc-4f0b-4877-aa4f-870c6e2be50a"
+    }
+  ]
+}
